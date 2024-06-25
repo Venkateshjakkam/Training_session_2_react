@@ -4,8 +4,12 @@ import './Login.css';
 
 export default function Login() {
   return (
-    <div className="flexlogin">
-      <Container maxWidth="xs" className="main-container">
+	<div className="main-container">
+
+	
+    <div className="flexlogin"> </div>
+	<div>
+      <Container maxWidth="xs" >
         <Box sx={{ mt: 8, p: 3, bgcolor: 'white', boxShadow: 3, borderRadius: 2 }}>
           <Typography variant="h5" component="h2" align="center" gutterBottom>
             Login
@@ -40,6 +44,7 @@ export default function Login() {
           </form>
         </Box>
       </Container>
-    </div>
+	  </div>
+	</div>
   );
 }

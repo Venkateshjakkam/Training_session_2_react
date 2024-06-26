@@ -8,8 +8,11 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	min-height: 100vh;
+	/* min-height: 80vh;
+	overflow-y: auto; */
 	background-color: #f0f2f5;
+	
+	
   }
   
   .container {
@@ -22,8 +25,21 @@ body {
 	justify-content: center;
 	align-items: center;
 	color: white;
+
+  }
+  .form-container {
+	width: 100%;
+	max-height: 80vh; /* Adjust the max height as needed */
+	overflow-y: auto; /* Enable vertical scrolling */
+	padding: 20px;
+	background-color: white;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
   }
   
+  .imgcontainer{
+	display: flex;
+  }
   @media (max-width: 600px) {
 	.container {
 	  display: none;

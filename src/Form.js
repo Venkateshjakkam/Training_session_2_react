@@ -1,185 +1,244 @@
-import React from 'react';
-import { 
-  Container, 
-  TextField, 
-  Button, 
-  Radio, 
-  RadioGroup, 
-  FormControl, 
-  FormControlLabel, 
-  FormLabel, 
-  Checkbox, 
-  FormGroup, 
-  Select, 
-  MenuItem, 
-  InputLabel, 
-  Box, 
-  Typography, 
-  Grid 
-} from '@mui/material';
+import React, { useState } from 'react';
+import { Container, TextField, Button, Checkbox, FormControlLabel, Box, Typography, Radio, RadioGroup, FormControl, FormLabel, FormGroup, FormHelperText, MenuItem, Select, InputLabel } from '@mui/material';
 import './Form.css';
 
 export default function Form() {
+  const [fullName, setFullName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [dob, setDob] = useState('');
+  const [gender, setGender] = useState('');
+  const [hobbies, setHobbies] = useState([]);
+  const [country, setCountry] = useState('');
+  const [bio, setBio] = useState('');
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Full Name:', fullName);
+    console.log('Username:', username);
+    console.log('Password:', password);
+    console.log('Confirm Password:', confirmPassword);
+    console.log('Email:', email);
+    console.log('Phone Number:', phoneNumber);
+    console.log('Date of Birth:', dob);
+    console.log('Gender:', gender);
+    console.log('Hobbies:', hobbies);
+    console.log('Country:', country);
+    console.log('Bio:', bio);
+    console.log('Agree to Terms:', agreeToTerms);
+  };
+
+  const handleHobbiesChange = (event) => {
+    const value = event.target.value;
+    setHobbies((prevHobbies) =>
+      prevHobbies.includes(value)
+        ? prevHobbies.filter((hobby) => hobby !== value)
+        : [...prevHobbies, value]
+    );
+  };
+
   return (
+    <div className='imgcontainer'>
+      <div className='container'></div>
+    
     <div className="flexdiv">
-      <div className="container">
-        <Typography variant="h4" component="h1">Register Now</Typography>
-      </div>
-      <Container component="main" maxWidth="md">
-        <Box sx={{ mt: 5, mb: 5, p: 3, bgcolor: 'white', boxShadow: 3, borderRadius: 2 }}>
-          <Typography variant="h5" component="h2" align="center" gutterBottom>
-            Register Form
+      <Container maxWidth="sm" className="main-container">
+        <Box  className="form-container" sx={{ mt: 5, p: 3, bgcolor: 'white', boxShadow: 3, borderRadius: 2 }}>
+          <Typography variant="h4" component="h1" align="center" gutterBottom>
+            Register Now
           </Typography>
-          <form action="#" id="registrationForm">
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField 
-                  fullWidth 
-                  margin="normal" 
-                  id="fName" 
-                  label="Full Name" 
-                  variant="outlined" 
-                  required 
+          <form id="registrationForm" onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              margin="normal"
+              id="fName"
+              label="Full Name"
+              variant="outlined"
+              required
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              id="uName"
+              label="Username"
+              variant="outlined"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              id="pass"
+              label="Password"
+              type="password"
+              variant="outlined"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              id="cpass"
+              label="Confirm Password"
+              type="password"
+              variant="outlined"
+              required
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              id="gmail"
+              label="Email Address"
+              type="email"
+              variant="outlined"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              id="pnum"
+              label="Phone Number"
+              type="tel"
+              variant="outlined"
+              required
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              id="DOB"
+              label="Date of Birth"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              variant="outlined"
+              required
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+            />
+            <FormControl component="fieldset" margin="normal" fullWidth>
+              <FormLabel component="legend">Gender</FormLabel>
+              <RadioGroup
+                row
+                aria-label="gender"
+                name="gender"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+              >
+                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                <FormControlLabel value="other" control={<Radio />} label="Other" />
+              </RadioGroup>
+            </FormControl>
+            <FormControl component="fieldset" margin="normal" fullWidth>
+              <FormLabel component="legend">Hobbies</FormLabel>
+              <FormGroup row>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value="reading"
+                      checked={hobbies.includes('reading')}
+                      onChange={handleHobbiesChange}
+                    />
+                  }
+                  label="Reading"
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField 
-                  fullWidth 
-                  margin="normal" 
-                  id="uName" 
-                  label="Username" 
-                  variant="outlined" 
-                  required 
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value="traveling"
+                      checked={hobbies.includes('traveling')}
+                      onChange={handleHobbiesChange}
+                    />
+                  }
+                  label="Traveling"
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField 
-                  fullWidth 
-                  margin="normal" 
-                  id="pass" 
-                  label="Password" 
-                  type="password" 
-                  variant="outlined" 
-                  required 
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value="cooking"
+                      checked={hobbies.includes('cooking')}
+                      onChange={handleHobbiesChange}
+                    />
+                  }
+                  label="Cooking"
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField 
-                  fullWidth 
-                  margin="normal" 
-                  id="cpass" 
-                  label="Confirm Password" 
-                  type="password" 
-                  variant="outlined" 
-                  required 
+              </FormGroup>
+            </FormControl>
+            <TextField
+              fullWidth
+              margin="normal"
+              id="picture"
+              type="file"
+              variant="outlined"
+            />
+            <FormControl fullWidth margin="normal">
+              <InputLabel id="country-label">Select Your Country</InputLabel>
+              <Select
+                labelId="country-label"
+                id="Ctry"
+                value={country}
+                label="Select Your Country"
+                onChange={(e) => setCountry(e.target.value)}
+              >
+                <MenuItem value="ind">India</MenuItem>
+                <MenuItem value="rus">Russia</MenuItem>
+                <MenuItem value="ADE">Dubai</MenuItem>
+                <MenuItem value="ir">Iran</MenuItem>
+                <MenuItem value="npl">Nepal</MenuItem>
+                <MenuItem value="sa">South Africa</MenuItem>
+                <MenuItem value="aus">Australia</MenuItem>
+                <MenuItem value="sl">Sri Lanka</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              fullWidth
+              margin="normal"
+              id="info"
+              label="Bio"
+              multiline
+              rows={4}
+              variant="outlined"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  id="tm"
+                  name="terms"
+                  checked={agreeToTerms}
+                  onChange={(e) => setAgreeToTerms(e.target.checked)}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField 
-                  fullWidth 
-                  margin="normal" 
-                  id="gmail" 
-                  label="Email Address" 
-                  type="email" 
-                  variant="outlined" 
-                  required 
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField 
-                  fullWidth 
-                  margin="normal" 
-                  id="pnum" 
-                  label="Phone Number" 
-                  type="tel" 
-                  variant="outlined" 
-                  required 
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField 
-                  fullWidth 
-                  margin="normal" 
-                  id="DOB" 
-                  label="Date of Birth" 
-                  type="date" 
-                  InputLabelProps={{ shrink: true }}
-                  variant="outlined" 
-                  required 
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl component="fieldset" margin="normal" fullWidth>
-                  <FormLabel component="legend">Gender</FormLabel>
-                  <RadioGroup row aria-label="gender" name="gender">
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl component="fieldset" margin="normal" fullWidth>
-                  <FormLabel component="legend">Hobbies</FormLabel>
-                  <FormGroup row>
-                    <FormControlLabel control={<Checkbox name="hobbies" />} label="Reading" />
-                    <FormControlLabel control={<Checkbox name="hobbies" />} label="Traveling" />
-                    <FormControlLabel control={<Checkbox name="hobbies" />} label="Cooking" />
-                  </FormGroup>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <Button variant="contained" component="label" fullWidth sx={{ mt: 2 }}>
-                  Upload Profile Picture
-                  <input type="file" id="picture" hidden />
-                </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <FormControl fullWidth margin="normal">
-                  <InputLabel id="country-label">Select Your Country</InputLabel>
-                  <Select
-                    labelId="country-label"
-                    id="Ctry"
-                    label="Select Your Country"
-                  >
-                    <MenuItem value="ind">India</MenuItem>
-                    <MenuItem value="rus">Russia</MenuItem>
-                    <MenuItem value="ADE">Dubai</MenuItem>
-                    <MenuItem value="ir">Iran</MenuItem>
-                    <MenuItem value="npl">Nepal</MenuItem>
-                    <MenuItem value="sa">South Africa</MenuItem>
-                    <MenuItem value="aus">Australia</MenuItem>
-                    <MenuItem value="sl">Sri Lanka</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField 
-                  fullWidth 
-                  margin="normal" 
-                  id="info" 
-                  label="Bio" 
-                  multiline 
-                  rows={4} 
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel 
-                  control={<Checkbox id="tm" />} 
-                  label="Agree to Terms and Conditions" 
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                  <Button variant="outlined" type="reset">Reset</Button>
-                  <Button variant="contained" type="submit">Submit</Button>
-                </Box>
-              </Grid>
-            </Grid>
+              }
+              label="Agree to Terms and Conditions"
+            />
+            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
+              <Button variant="outlined" type="reset">
+                Reset
+              </Button>
+              <Button variant="contained" type="submit">
+                Submit
+              </Button>
+            </Box>
           </form>
         </Box>
       </Container>
+    </div>
     </div>
   );
 }

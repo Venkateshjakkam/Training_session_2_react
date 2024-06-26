@@ -1,17 +1,33 @@
 import React,{useState} from 'react';
 import { Container, TextField, Button, Checkbox, FormControlLabel, Box, Typography } from '@mui/material';
 import './Login.css';
+import axios from 'axios';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (event) => {
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   console.log('Username:', username);
+  //   console.log('Password:', password);
+  //   console.log('Remember Me:', rememberMe);
+  // };
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Username:', username);
-    console.log('Password:', password);
-    console.log('Remember Me:', rememberMe);
+    const loginData = {
+      username,
+      password,
+      rememberMe,
+    };
+
+    try {
+      const response = await axios.post('https://jsonplaceholder.typicode.com/posts', loginData);
+      console.log('Login successful:', response.data);
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
   };
 
   return (

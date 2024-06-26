@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Checkbox, FormControlLabel, Box, Typography, Radio, RadioGroup, FormControl, FormLabel, FormGroup, FormHelperText, MenuItem, Select, InputLabel } from '@mui/material';
+import axios from 'axios';
 import './Form.css';
 
 export default function Form() {
@@ -16,20 +17,32 @@ export default function Form() {
   const [bio, setBio] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Full Name:', fullName);
-    console.log('Username:', username);
-    console.log('Password:', password);
-    console.log('Confirm Password:', confirmPassword);
-    console.log('Email:', email);
-    console.log('Phone Number:', phoneNumber);
-    console.log('Date of Birth:', dob);
-    console.log('Gender:', gender);
-    console.log('Hobbies:', hobbies);
-    console.log('Country:', country);
-    console.log('Bio:', bio);
-    console.log('Agree to Terms:', agreeToTerms);
+    const formData = {
+      fullName,
+      username,
+      password,
+      confirmPassword,
+      email,
+      phoneNumber,
+      dob,
+      gender,
+      hobbies,
+      country,
+      bio,
+      agreeToTerms,
+    };
+
+
+    try {
+      const response = await axios.post('https://jsonplaceholder.typicode.com/posts', formData);
+      console.log('Form submitted successfully:', response.data);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+
+
   };
 
   const handleHobbiesChange = (event) => {
